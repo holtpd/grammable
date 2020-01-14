@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
 
   def create
     @gram = Gram.find_by_id(params[:gram_id])
-    render_not_found if@gram.blank?
+    return render_not_found if @gram.blank?
     @gram.comments.create(comment_params.merge(user: current_user))
     redirect_to root_path
   end
@@ -11,6 +11,7 @@ class CommentsController < ApplicationController
   private
 
   # def render_not_found(status=:not_found)
+  #   binding.pry
   #   render plain: "#{status.to_s.titleize} :(", status: status
   # end
 
